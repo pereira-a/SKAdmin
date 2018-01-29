@@ -9,8 +9,9 @@ The menus of this script are made with [warmenu by Warxander](https://github.com
 4. Restart or start your server.
 
 # Features
+- [X] Kick Player
+- [] Entered/Leaved Server Message
+- [] Warnings
 
 # Credits
-
-# TODO:
 
