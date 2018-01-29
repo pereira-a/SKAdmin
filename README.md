@@ -10,8 +10,8 @@ The menus of this script are made with [warmenu by Warxander](https://github.com
 
 # Features
 - [X] Kick Player
-- [] Entered/Leaved Server Message
-- [] Warnings
+- [ ] Entered/Leaved Server Message
+- [ ] Warnings
 
 # Credits
 
