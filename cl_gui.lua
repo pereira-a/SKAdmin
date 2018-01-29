@@ -2,7 +2,6 @@ admin = false
 
 RegisterNetEvent("skadmin:adminStatus")
 AddEventHandler("skadmin:adminStatus", function(status)
-  Citizen.Trace("Hello!!! :)")
   if status then
     admin = true
   end
@@ -37,17 +36,32 @@ Citizen.CreateThread(function()
         -- ADMIN MENU
         elseif WarMenu.IsMenuOpened('admin_menu') then
           if WarMenu.MenuButton('Kick Player', 'kick') then
-
           end
           WarMenu.Display()
         -- CLOSE MENU
         elseif WarMenu.IsMenuOpened('closeMenu') then
-            if WarMenu.Button('Yes') then
-                WarMenu.CloseMenu()
-            elseif WarMenu.MenuButton('No', 'main') then
+          if WarMenu.Button('Yes') then
+              WarMenu.CloseMenu()
+          elseif WarMenu.MenuButton('No', 'main') then
+          end
+          WarMenu.Display()
+        -- KICK PLAYER
+        elseif WarMenu.IsMenuOpened('kick') then
+          local players = getOnlinePlayers()
+          --
+          for i, player in ipairs(players) do
+            if WarMenu.MenuButton("["..players[i]['serverID'].."]"..players[i]['name'], 'kick') then
+              DisplayOnscreenKeyboard(1, 'FMMC_KEY_TIP8', '', '', '', '', '', 128+1)
+              while UpdateOnscreenKeyboard() ~= 1 and UpdateOnscreenKeyboard() ~= 2 do
+                Citizen.Wait(0)
+              end
+              local result = GetOnscreenKeyboardResult()
+              if result then
+                TriggerServerEvent("skadmin:kickPlayer", players[i]['serverID'], "Kicked:"..result)
+              end
             end
-
-            WarMenu.Display()
+          end
+          WarMenu.Display()
         elseif IsControlJustReleased(0, 244) then --M by default
             WarMenu.OpenMenu('main')
         end

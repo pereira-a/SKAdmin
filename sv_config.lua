@@ -1,5 +1,6 @@
 admins = {
   "steam:1100001018397d5",
+  "ip:127.0.0.1",
 }
 -- Is identifier in admins list?
 function isAdmin(identifier)
@@ -20,7 +21,6 @@ end
 -- Is player an admin?
 RegisterServerEvent("skadmin:isAdmin")
 AddEventHandler("skadmin:isAdmin", function()
-  print("hey")
   local source = source
 	local identifiers = GetPlayerIdentifiers(source)
 	local found = false
