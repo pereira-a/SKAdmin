@@ -13,7 +13,7 @@ function getOnlinePlayers()
         ['ped'] = GetPlayerPed(i),
         ['name'] = playerName,
         ['id'] = i,
-        ['serverID'] = serverID
+        ['serverID'] = serverID,
       })
     end
   end

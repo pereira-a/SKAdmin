@@ -19,7 +19,6 @@ Citizen.CreateThread(function()
     WarMenu.CreateSubMenu('kick', 'admin_menu', 'Kick Player')
     WarMenu.CreateSubMenu('ban', 'admin_menu', 'Ban Player')
     WarMenu.CreateSubMenu('spectate', 'admin_menu', 'Spectate Player')
-    WarMenu.CreateSubMenu('kick', 'admin_menu', 'Kick Player')
     WarMenu.CreateSubMenu('teleport', 'admin_menu', 'Teleport to Player')
 
     while true do
@@ -36,6 +35,7 @@ Citizen.CreateThread(function()
         -- ADMIN MENU
         elseif WarMenu.IsMenuOpened('admin_menu') then
           if WarMenu.MenuButton('Kick Player', 'kick') then
+          elseif WarMenu.MenuButton('Ban Player', 'ban') then
           end
           WarMenu.Display()
         -- CLOSE MENU
@@ -48,7 +48,7 @@ Citizen.CreateThread(function()
         -- KICK PLAYER
         elseif WarMenu.IsMenuOpened('kick') then
           local players = getOnlinePlayers()
-          --
+
           for i, player in ipairs(players) do
             if WarMenu.MenuButton("["..players[i]['serverID'].."]"..players[i]['name'], 'kick') then
               DisplayOnscreenKeyboard(1, 'FMMC_KEY_TIP8', '', '', '', '', '', 128+1)
@@ -57,7 +57,24 @@ Citizen.CreateThread(function()
               end
               local result = GetOnscreenKeyboardResult()
               if result then
-                TriggerServerEvent("skadmin:kickPlayer", players[i]['serverID'], "Kicked:"..result)
+                TriggerServerEvent("skadmin:kickPlayer", players[i]['serverID'], result)
+              end
+            end
+          end
+          WarMenu.Display()
+        -- BAN PLAYER
+        elseif WarMenu.IsMenuOpened('ban') then
+          local players = getOnlinePlayers()
+
+          for i, player in ipairs(players) do
+            if WarMenu.MenuButton("["..players[i]['serverID'].."]"..players[i]['name'], 'ban') then
+              DisplayOnscreenKeyboard(1, 'FMMC_KEY_TIP8', '', '', '', '', '', 128+1)
+              while UpdateOnscreenKeyboard() ~= 1 and UpdateOnscreenKeyboard() ~= 2 do
+                Citizen.Wait(0)
+              end
+              local result = GetOnscreenKeyboardResult()
+              if result then
+                TriggerServerEvent("skadmin:banPlayer", players[i], result)
               end
             end
           end
