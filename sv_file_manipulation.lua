@@ -1,32 +1,36 @@
 DATA = {}
 
-DATA.dir = "saves/"
-
-function DATA:init()
-  if()
-end
-
-function DATA:pathExists(path)
-  if type(path) ~= "string" then return false end
-
-  if os.rename(path, path) == nil return false else return true end
-end
-
-function DATA:fileExists(name)
-  local path = self.dir .. name
+function DATA:fileExists(path)
   local file = io.open(path, "r")
   if file then io.close(file) return true else return false end
 end
 
-function DATA:createFile(name)
-  local path = self.dir .. name
+function DATA:createFile(path)
   local file, err = io.open(path, "w")
-
   if not file then self:print(err) end
-
   io.close(file)
 end
 
-Citizen.CreateThread(function()
-  Citizen.Wait(1000)
-end)
+-- Returns a line iterator.
+-- Returns nil if !~ fileExists
+function DATA:getLineIterator(path)
+  if self:fileExists(path) then
+    return io.lines(path)
+  else
+    return nil
+  end
+end
+
+function DATA:appendToFile(path, string)
+  if self:fileExists(path) then
+    local file = io.open(path, "a")
+    file:write(string)
+    io.close(file)
+    return true
+  end
+  return false
+end
+
+function DATA:print(text)
+  print("SKADMIN DATA: " .. text .. "\n")
+end

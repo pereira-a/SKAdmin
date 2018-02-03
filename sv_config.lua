@@ -1,7 +1,14 @@
-admins = {
+local admins = {
   "steam:1100001018397d5",
   "ip:127.0.0.1",
 }
+
+Config = {}
+Config.settings = {
+    saves_directory = "skadmin_saves/", -- Extremely important: this directory must be created in server-data
+    banlist_file = "banlist.txt"
+}
+
 -- Is identifier in admins list?
 function isAdmin(identifier)
 	local adminList = {}

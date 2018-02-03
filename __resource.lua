@@ -10,3 +10,4 @@ client_scripts {
 server_script 'sv_main.lua'
 server_script 'sv_config.lua'
 server_script 'sv_admin.lua'
+server_script 'sv_file_manipulation.lua'
