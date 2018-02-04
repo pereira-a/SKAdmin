@@ -58,20 +58,39 @@ end)
 -- Returns a table with all the names of players banned
 -- Returns empty table if no players are banned or if file does not exists
 RegisterServerEvent("skadmin:getBanList")
-AddEventHandler("skadmin:getBanList", function(player, reason)
+AddEventHandler("skadmin:getBanList", function()
   local bansIterator = DATA:getLineIterator(dir .. banfile)
   banlist = {}
-  
+
   if bansIterator ~= nil then
-    local index = 0
     for line in bansIterator do
-      for i=1, 3, 1 do
+      local index = 0
+      index = string.find(line, ";", index+1)
+
+      local license = string.sub(line, 1, index-1)
+
+      for i=1, 2, 1 do
         index = string.find(line, ";", index+1)
       end
+
       local name = string.sub(line, index+1, #line)
-      table.insert(banlist, name)
+
+      local ban = {
+        license = license,
+        name = name
+      }
+
+      table.insert(banlist, ban)
     end
   end
 
   TriggerClientEvent("skadmin:updateGuiBanList", source, banlist)
+end)
+
+-- UNBAN PLAYER EVENT
+RegisterServerEvent("skadmin:unbanPlayer")
+AddEventHandler("skadmin:unbanPlayer", function(license)
+  if license ~= nil then
+    DATA:removeLine(dir .. banfile, license)
+  end
 end)

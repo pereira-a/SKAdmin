@@ -15,13 +15,14 @@ The menus of this script are made with [warmenu by Warxander](https://github.com
 # Features
 - [X] Kick Player
 - [X] Ban Player
-- [ ] Unban Player
+- [X] Unban Player
 - [ ] Admin Ranks
 - [ ] Enter/Leave Server Messages
 - [ ] Warnings
 
 # TODO List
-- [ ] DATA:removeLine
-- [ ] Finish Unban Player
+- [X] DATA:removeLine
+- [X] Finish Unban Player
+- [ ] Event Messages
 
 # Credits

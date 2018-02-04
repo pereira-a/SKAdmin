@@ -102,11 +102,11 @@ Citizen.CreateThread(function()
         -- ---------------------------------------------------------------------
         elseif WarMenu.IsMenuOpened('unban') then
           if banlist ~= {} then
-            Citizen.Trace("!!!.."..banlist[1  ])
-            for i, name in ipairs(banlist) do
-              Citizen.Trace("name: " .. name.. " " .. i)
-              if WarMenu.MenuButton(name, "unban") then
-                -- TODO:
+            for i, ban in ipairs(banlist) do
+              Citizen.Trace("name: " .. ban["name"].. " " .. i)
+              if WarMenu.MenuButton(ban["name"], "unban") then
+                TriggerServerEvent("skadmin:unbanPlayer", ban["license"])
+                WarMenu.OpenMenu('admin_menu')
               end
             end
           else
