@@ -31,6 +31,12 @@ function DATA:appendToFile(path, string)
   return false
 end
 
+-- Removes a line from a txt file.
+-- line is an int
+function DATA:removeLine(path, line)
+  -- TODO:
+end
+
 function DATA:print(text)
   print("SKADMIN DATA: " .. text .. "\n")
 end

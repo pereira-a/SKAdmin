@@ -10,13 +10,18 @@ The menus of this script are made with [warmenu by Warxander](https://github.com
 4. Restart or start your server.
 
 # Notes
-1. Is extremely important to create skadmin_saves directory. You can change that in Config.settings.saves_directory
+1. Is extremely important to create skadmin_saves directory. You can change then name of the folder and files in Config.settings.saves_directory
 
 # Features
 - [X] Kick Player
 - [X] Ban Player
-- [ ] Ban Management
-- [ ] Entered/Leaved Server Message
+- [ ] Unban Player
+- [ ] Admin Ranks
+- [ ] Enter/Leave Server Messages
 - [ ] Warnings
+
+# TODO List
+- [ ] DATA:removeLine
+- [ ] Finish Unban Player
 
 # Credits

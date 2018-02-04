@@ -1,10 +1,16 @@
-admin = false
+local admin = false
+local banlist = {}
 
 RegisterNetEvent("skadmin:adminStatus")
 AddEventHandler("skadmin:adminStatus", function(status)
   if status then
     admin = true
   end
+end)
+
+RegisterNetEvent("skadmin:updateGuiBanList")
+AddEventHandler("skadmin:updateGuiBanList", function(table)
+  banlist = table
 end)
 
 Citizen.CreateThread(function()
@@ -18,11 +24,14 @@ Citizen.CreateThread(function()
     -- ADMIN Menu
     WarMenu.CreateSubMenu('kick', 'admin_menu', 'Kick Player')
     WarMenu.CreateSubMenu('ban', 'admin_menu', 'Ban Player')
+    WarMenu.CreateSubMenu('unban', 'admin_menu', 'Unban Player')
     WarMenu.CreateSubMenu('spectate', 'admin_menu', 'Spectate Player')
     WarMenu.CreateSubMenu('teleport', 'admin_menu', 'Teleport to Player')
 
     while true do
+        -- ---------------------------------------------------------------------
         -- MAIN MENU
+        -- ---------------------------------------------------------------------
         if WarMenu.IsMenuOpened('main') then
           if admin == false then
               WarMenu.CloseMenu()
@@ -32,20 +41,27 @@ Citizen.CreateThread(function()
           end
 
           WarMenu.Display()
+        -- ---------------------------------------------------------------------
         -- ADMIN MENU
+        -- ---------------------------------------------------------------------
         elseif WarMenu.IsMenuOpened('admin_menu') then
           if WarMenu.MenuButton('Kick Player', 'kick') then
           elseif WarMenu.MenuButton('Ban Player', 'ban') then
+          elseif WarMenu.MenuButton('Unban Player', 'unban') then
           end
           WarMenu.Display()
+        -- ---------------------------------------------------------------------
         -- CLOSE MENU
+        -- ---------------------------------------------------------------------
         elseif WarMenu.IsMenuOpened('closeMenu') then
           if WarMenu.Button('Yes') then
               WarMenu.CloseMenu()
           elseif WarMenu.MenuButton('No', 'main') then
           end
           WarMenu.Display()
+        -- ---------------------------------------------------------------------
         -- KICK PLAYER
+        -- ---------------------------------------------------------------------
         elseif WarMenu.IsMenuOpened('kick') then
           local players = getOnlinePlayers()
 
@@ -62,7 +78,9 @@ Citizen.CreateThread(function()
             end
           end
           WarMenu.Display()
+        -- ---------------------------------------------------------------------
         -- BAN PLAYER
+        -- ---------------------------------------------------------------------
         elseif WarMenu.IsMenuOpened('ban') then
           local players = getOnlinePlayers()
 
@@ -79,8 +97,24 @@ Citizen.CreateThread(function()
             end
           end
           WarMenu.Display()
+        -- ---------------------------------------------------------------------
+        -- UNBAN PLAYER
+        -- ---------------------------------------------------------------------
+        elseif WarMenu.IsMenuOpened('unban') then
+          if banlist ~= {} then
+            Citizen.Trace("!!!.."..banlist[1  ])
+            for i, name in ipairs(banlist) do
+              Citizen.Trace("name: " .. name.. " " .. i)
+              if WarMenu.MenuButton(name, "unban") then
+                -- TODO:
+              end
+            end
+          else
+            WarMenu.OpenMenu("admin_menu")
+          end
+          WarMenu.Display()
         elseif IsControlJustReleased(0, 244) then --M by default
-            WarMenu.OpenMenu('main')
+          WarMenu.OpenMenu('main')
         end
 
         Citizen.Wait(0)
