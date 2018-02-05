@@ -10,7 +10,7 @@ The menus of this script are made with [warmenu by Warxander](https://github.com
 4. Restart or start your server.
 
 ## Config
-The following featured are all configured in sv_config.lua file.
+The following features are all configurable in sv_config.lua file.
 
 ### Directory Name
 To change the name of the save directory change the value of Config.settings.saves_directory
