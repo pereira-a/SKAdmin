@@ -48,6 +48,7 @@ Citizen.CreateThread(function()
           if WarMenu.MenuButton('Kick Player', 'kick') then
           elseif WarMenu.MenuButton('Ban Player', 'ban') then
           elseif WarMenu.MenuButton('Unban Player', 'unban') then
+          elseif WarMenu.MenuButton('Spectate Player', 'spectate') then
           end
           WarMenu.Display()
         -- ---------------------------------------------------------------------
@@ -105,7 +106,6 @@ Citizen.CreateThread(function()
         elseif WarMenu.IsMenuOpened('unban') then
           if banlist ~= {} then
             for i, ban in ipairs(banlist) do
-              Citizen.Trace("name: " .. ban["name"].. " " .. i)
               if WarMenu.MenuButton(ban["name"], "unban") then
                 TriggerServerEvent("skadmin:unbanPlayer", ban["license"], ban["name"])
                 WarMenu.OpenMenu('admin_menu')
@@ -115,10 +115,24 @@ Citizen.CreateThread(function()
             WarMenu.OpenMenu("admin_menu")
           end
           WarMenu.Display()
+        -- ---------------------------------------------------------------------
+        -- SPECTATE PLAYER
+        -- ---------------------------------------------------------------------
+        elseif WarMenu.IsMenuOpened('spectate') then
+          local players = getOnlinePlayers()
+
+          for i, player in ipairs(players) do
+            if WarMenu.MenuButton("["..players[i]['serverID'].."]"..players[i]['name'], 'ban') then
+              spectatePlayer(players[i]['serverID'])
+              WarMenu.CloseMenu()
+            end
+          end
+          WarMenu.Display()
         elseif IsControlJustReleased(0, 244) then --M by default
           WarMenu.OpenMenu('main')
         end
 
         Citizen.Wait(0)
+
     end
 end)
