@@ -18,15 +18,17 @@ Citizen.CreateThread(function()
 
     -- MAIN MENU
     WarMenu.CreateMenu('main', 'SK Admin')
-    WarMenu.CreateSubMenu('admin_menu', 'main', 'Admin Options')
-    WarMenu.CreateSubMenu('trainer_menu', 'main', 'Admin Trainer')
+    WarMenu.CreateSubMenu('admin_menu', 'main', 'Admin Menu')
+    WarMenu.CreateSubMenu('trainer_menu', 'main', 'Trainer Menu')
     WarMenu.CreateSubMenu('closeMenu', 'main', 'Are you sure?')
-    -- ADMIN Menu
+    -- ADMIN MENU
     WarMenu.CreateSubMenu('kick', 'admin_menu', 'Kick Player')
     WarMenu.CreateSubMenu('ban', 'admin_menu', 'Ban Player')
     WarMenu.CreateSubMenu('unban', 'admin_menu', 'Unban Player')
     WarMenu.CreateSubMenu('spectate', 'admin_menu', 'Spectate Player')
-    WarMenu.CreateSubMenu('teleport', 'admin_menu', 'Teleport to Player')
+    -- TRAINER MENU
+    WarMenu.CreateSubMenu('teleport_player', 'trainer_menu', 'Teleport to Player')
+    WarMenu.CreateSubMenu('teleport_point', 'trainer_menu', 'Teleport to WayPoint')
 
     while true do
         -- ---------------------------------------------------------------------
@@ -49,6 +51,14 @@ Citizen.CreateThread(function()
           elseif WarMenu.MenuButton('Ban Player', 'ban') then
           elseif WarMenu.MenuButton('Unban Player', 'unban') then
           elseif WarMenu.MenuButton('Spectate Player', 'spectate') then
+          end
+          WarMenu.Display()
+        -- ---------------------------------------------------------------------
+        -- TRAINER MENU
+        -- ---------------------------------------------------------------------
+        elseif WarMenu.IsMenuOpened('trainer_menu') then
+          if WarMenu.MenuButton('Teleport to Player', 'teleport_player') then
+          elseif WarMenu.MenuButton('Teleport to WayPoint', 'teleport_point') then
           end
           WarMenu.Display()
         -- ---------------------------------------------------------------------
@@ -122,17 +132,38 @@ Citizen.CreateThread(function()
           local players = getOnlinePlayers()
 
           for i, player in ipairs(players) do
-            if WarMenu.MenuButton("["..players[i]['serverID'].."]"..players[i]['name'], 'ban') then
+            if WarMenu.MenuButton("["..players[i]['serverID'].."]"..players[i]['name'], 'spectate') then
               spectatePlayer(players[i]['serverID'])
               WarMenu.CloseMenu()
             end
           end
           WarMenu.Display()
+        -- ---------------------------------------------------------------------
+        -- TELEPORT PLAYER
+        -- ---------------------------------------------------------------------
+        elseif WarMenu.IsMenuOpened('teleport_player') then
+          local players = getOnlinePlayers()
+
+          for i, player in ipairs(players) do
+            if WarMenu.MenuButton("["..players[i]['serverID'].."]"..players[i]['name'], 'teleport_player') then
+              teleportToPlayer(players[i]["id"])
+              WarMenu.OpenMenu("trainer_menu")
+            end
+          end
+          WarMenu.Display()
+        -- ---------------------------------------------------------------------
+        -- TELEPORT TO WAYPOINY
+        -- ---------------------------------------------------------------------
+        elseif WarMenu.IsMenuOpened('teleport_point') then
+          teleportToWayPoint()
+          WarMenu.OpenMenu("trainer_menu")
+          WarMenu.Display()
+        -- ---------------------------------------------------------------------
+        -- OPEN MENU
+        -- ---------------------------------------------------------------------
         elseif IsControlJustReleased(0, 244) then --M by default
           WarMenu.OpenMenu('main')
         end
-
         Citizen.Wait(0)
-
-    end
+      end
 end)

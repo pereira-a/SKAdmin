@@ -30,6 +30,8 @@ To turn of use the nil value. To turn on use the value 1
 - [X] Ban Player
 - [X] Unban Player
 - [X] Spectate Player
+- [X] Teleport to Player
+- [X] Teleport to WayPoint
 - [X] Event Chat Messages & Event Console Messages
 - [ ] Admin Ranks
 - [ ] Warnings

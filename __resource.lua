@@ -4,7 +4,7 @@ client_scripts {
   'warmenu.lua',
   'cl_general.lua',
   'cl_gui.lua',
-  'cl_online.lua'
+  'cl_admin.lua'
 }
 
 server_script 'sv_main.lua'
