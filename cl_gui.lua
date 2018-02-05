@@ -74,6 +74,7 @@ Citizen.CreateThread(function()
               local result = GetOnscreenKeyboardResult()
               if result then
                 TriggerServerEvent("skadmin:kickPlayer", players[i]['serverID'], result)
+                WarMenu.OpenMenu('admin_menu')
               end
             end
           end
@@ -93,6 +94,7 @@ Citizen.CreateThread(function()
               local result = GetOnscreenKeyboardResult()
               if result then
                 TriggerServerEvent("skadmin:banPlayer", players[i], result)
+                WarMenu.OpenMenu('admin_menu')
               end
             end
           end
@@ -105,7 +107,7 @@ Citizen.CreateThread(function()
             for i, ban in ipairs(banlist) do
               Citizen.Trace("name: " .. ban["name"].. " " .. i)
               if WarMenu.MenuButton(ban["name"], "unban") then
-                TriggerServerEvent("skadmin:unbanPlayer", ban["license"])
+                TriggerServerEvent("skadmin:unbanPlayer", ban["license"], ban["name"])
                 WarMenu.OpenMenu('admin_menu')
               end
             end

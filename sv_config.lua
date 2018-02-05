@@ -6,7 +6,13 @@ local admins = {
 Config = {}
 Config.settings = {
     saves_directory = "skadmin_saves/", -- Extremely important: this directory must be created in server-data
-    banlist_file = "banlist.txt"
+    banlist_file = "banlist.txt",
+    event_messages = 1, -- Event messages in server chat (ban, kick, etc..). Change to nil if you want to desactivate, to 1 if want it active.
+    event_messages_console = 1 -- Event messages in the console
+}
+
+Config.color = {
+  blue = {0, 0, 255}
 }
 
 -- Is identifier in admins list?

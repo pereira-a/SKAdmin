@@ -12,7 +12,11 @@ local banfile = Config.settings.banlist_file
 -- KICK PLAYER EVENT
 RegisterServerEvent("skadmin:kickPlayer")
 AddEventHandler("skadmin:kickPlayer", function(id, reason)
-  DropPlayer(id, string.format(strings.kicked, GetPlayerName(source), reason))
+  local adminName = GetPlayerName(source)
+  local playerName = GetPlayerName(id)
+  --DropPlayer(id, string.format(strings.kicked, playerName, reason))
+  if Config.settings.event_messages_console ~= nil then print(adminName .. " kicked " .. playerName .. ". Reason: " .. reason) end
+  if Config.settings.event_messages ~= nil then TriggerClientEvent("chatMessage", -1, "Server", Config.color.blue, playerName .. " kicked from server by " .. adminName .. ".") end
 end)
 
 -- BAN PLAYER EVENT
@@ -28,8 +32,10 @@ AddEventHandler("skadmin:banPlayer", function(player, reason)
     if string.find(ident, "license:") then
       local save_reason = reason.. string.format(strings.reason_add, adminName, playerName)
       DATA:appendToFile(dir .. banfile ,ident..";"..save_reason .. "\r\n") -- [license];[reason];[admin name];[playername]
+      -- DropPlayer(player["serverID"], string.format(strings.banned, reason))
+      if Config.settings.event_messages_console ~= nil then print(adminName .. " banned " .. playerName .. ". Reason: " .. reason) end
+      if Config.settings.event_messages ~= nil then TriggerClientEvent("chatMessage", -1, "Server", Config.color.blue, playerName .. " banned from server by " .. adminName .. ".") end
     end
-    DropPlayer(player["serverID"], string.format(strings.banned, reason))
   end
 end)
 
@@ -46,8 +52,8 @@ AddEventHandler("playerConnecting", function(playerName, setKickReason)
         if index then
           local savedId = string.sub(line, 1, index-1) -- minus 1, because it includes
           if id == savedId then
-            -- setKickReason(strings.connecting_banned)
-            -- CancelEvent()
+            setKickReason(strings.connecting_banned)
+            CancelEvent()
           end
         end
       end
@@ -89,8 +95,11 @@ end)
 
 -- UNBAN PLAYER EVENT
 RegisterServerEvent("skadmin:unbanPlayer")
-AddEventHandler("skadmin:unbanPlayer", function(license)
+AddEventHandler("skadmin:unbanPlayer", function(license, playerName)
   if license ~= nil then
+    local adminName = GetPlayerName(source)
+
     DATA:removeLine(dir .. banfile, license)
+    if Config.settings.event_messages_console ~= nil then print(adminName .. " unbanned " .. playerName) end
   end
 end)
