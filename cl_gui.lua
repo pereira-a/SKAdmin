@@ -19,16 +19,19 @@ Citizen.CreateThread(function()
     -- MAIN MENU
     WarMenu.CreateMenu('main', 'SK Admin')
     WarMenu.CreateSubMenu('admin_menu', 'main', 'Admin Menu')
-    WarMenu.CreateSubMenu('trainer_menu', 'main', 'Trainer Menu')
+    WarMenu.CreateSubMenu('teleport_menu', 'main', 'Teleport Menu')
+    WarMenu.CreateSubMenu('player_menu', 'main', 'Player Menu')
     WarMenu.CreateSubMenu('closeMenu', 'main', 'Are you sure?')
     -- ADMIN MENU
     WarMenu.CreateSubMenu('kick', 'admin_menu', 'Kick Player')
     WarMenu.CreateSubMenu('ban', 'admin_menu', 'Ban Player')
     WarMenu.CreateSubMenu('unban', 'admin_menu', 'Unban Player')
     WarMenu.CreateSubMenu('spectate', 'admin_menu', 'Spectate Player')
-    -- TRAINER MENU
-    WarMenu.CreateSubMenu('teleport_player', 'trainer_menu', 'Teleport to Player')
-    WarMenu.CreateSubMenu('teleport_point', 'trainer_menu', 'Teleport to WayPoint')
+    -- TELEPORT MENU
+    WarMenu.CreateSubMenu('teleport_player', 'teleport_menu', 'Teleport to Player')
+    WarMenu.CreateSubMenu('teleport_point', 'teleport_menu', 'Teleport to WayPoint')
+    -- PLAYER MENU
+    local noclip = false
 
     while true do
         -- ---------------------------------------------------------------------
@@ -38,7 +41,8 @@ Citizen.CreateThread(function()
           if admin == false then
               WarMenu.CloseMenu()
           elseif WarMenu.MenuButton('Admin Options', 'admin_menu') then
-          elseif WarMenu.MenuButton('Admin Trainer', 'trainer_menu') then
+          elseif WarMenu.MenuButton('Teleport Menu', 'teleport_menu') then
+          elseif WarMenu.MenuButton('Player Menu', 'player_menu') then
           elseif WarMenu.MenuButton('Exit', 'closeMenu') then
           end
 
@@ -54,13 +58,22 @@ Citizen.CreateThread(function()
           end
           WarMenu.Display()
         -- ---------------------------------------------------------------------
-        -- TRAINER MENU
+        -- TELEPORT MENU
         -- ---------------------------------------------------------------------
-        elseif WarMenu.IsMenuOpened('trainer_menu') then
+        elseif WarMenu.IsMenuOpened('teleport_menu') then
           if WarMenu.MenuButton('Teleport to Player', 'teleport_player') then
           elseif WarMenu.MenuButton('Teleport to WayPoint', 'teleport_point') then
           end
           WarMenu.Display()
+          -- ---------------------------------------------------------------------
+          -- PLAYER MENU
+          -- ---------------------------------------------------------------------
+          elseif WarMenu.IsMenuOpened('player_menu') then
+            if WarMenu.CheckBox("Noclip", noclip, function(checked) noclip = checked end) then
+              toggleNoClipMode()
+              WarMenu.CloseMenu()
+            end
+            WarMenu.Display()
         -- ---------------------------------------------------------------------
         -- CLOSE MENU
         -- ---------------------------------------------------------------------
@@ -147,7 +160,7 @@ Citizen.CreateThread(function()
           for i, player in ipairs(players) do
             if WarMenu.MenuButton("["..players[i]['serverID'].."]"..players[i]['name'], 'teleport_player') then
               teleportToPlayer(players[i]["id"])
-              WarMenu.OpenMenu("trainer_menu")
+              WarMenu.OpenMenu("teleport_menu")
             end
           end
           WarMenu.Display()
@@ -156,7 +169,7 @@ Citizen.CreateThread(function()
         -- ---------------------------------------------------------------------
         elseif WarMenu.IsMenuOpened('teleport_point') then
           teleportToWayPoint()
-          WarMenu.OpenMenu("trainer_menu")
+          WarMenu.OpenMenu("teleport_menu")
           WarMenu.Display()
         -- ---------------------------------------------------------------------
         -- OPEN MENU

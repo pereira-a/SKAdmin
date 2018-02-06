@@ -185,7 +185,7 @@ function WarMenu.CreateMenu(id, title)
     menus[id].aboutToBeClosed = false
 
     -- Top left corner
-    menus[id].x = 0.0175
+    menus[id].x = 0.65
     menus[id].y = 0.025
 
     menus[id].currentOption = 1
@@ -464,8 +464,8 @@ end
 function WarMenu.SetTitleColor(id, r, g, b, a)
     setMenuProperty(id, 'titleColor', { ['r'] = r, ['g'] = g, ['b'] = b, ['a'] = a or menus[id].titleColor.a })
 end
- 
- 
+
+
 function WarMenu.SetTitleBackgroundColor(id, r, g, b, a)
     setMenuProperty(id, 'titleBackgroundColor', { ['r'] = r, ['g'] = g, ['b'] = b, ['a'] = a or menus[id].titleBackgroundColor.a })
 end

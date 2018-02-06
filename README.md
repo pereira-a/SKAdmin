@@ -1,6 +1,5 @@
 # SKAdmin
 A FiveM script which implements an admin trainer, with admin options and basic trainer options.
-The menus of this script are made with [warmenu by Warxander](https://github.com/adikanchukov/warmenu)
 
 ## Installing
 1. Create a new folder in /resources and name it *SkAdmin*.
@@ -32,6 +31,7 @@ To turn of use the nil value. To turn on use the value 1
 - [X] Spectate Player
 - [X] Teleport to Player
 - [X] Teleport to WayPoint
+- [X] Noclip
 - [X] Event Chat Messages & Event Console Messages
 - [ ] Admin Ranks
 - [ ] Warnings
@@ -42,5 +42,8 @@ To turn of use the nil value. To turn on use the value 1
 - [X] Event Messages
 - [ ] Implementation with MySQL
 - [ ] Lower ranks cant spectate, kick, ban, etc higher raks
+- [ ] Instructions text in noclip
 
 ## Credits
+[Warmenu by Warxander](https://github.com/adikanchukov/warmenu) which i used to make the menus.
+[Mellotrainer by TheStonedTurtle](https://github.com/TheStonedTurtle/mellotrainer) for the noclip.
