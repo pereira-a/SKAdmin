@@ -45,5 +45,5 @@ To turn of use the nil value. To turn on use the value 1
 - [ ] Instructions text in noclip
 
 ## Credits
-[Warmenu by Warxander](https://github.com/adikanchukov/warmenu) which i used to make the menus.
-[Mellotrainer by TheStonedTurtle](https://github.com/TheStonedTurtle/mellotrainer) for the noclip.
+[Warmenu by Warxander](https://github.com/adikanchukov/warmenu) which i used to make the menus.  
+[Mellotrainer by TheStonedTurtle](https://github.com/TheStonedTurtle/mellotrainer) for the noclip.  
