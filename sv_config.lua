@@ -18,6 +18,7 @@ Config.settings = {
 }
 
 Config.permissions = {
+  ["server_management"] = 3,
   ["kick"] = 1,
   ["ban"] = 2,
   ["unban"] = 2,
@@ -67,12 +68,10 @@ AddEventHandler("skadmin:isAdmin", function(id)
 	local found = false
   local rank = getRank(id)
 	if rank > 0 then
-    print("yes!!")
 		TriggerClientEvent("skadmin:adminStatus",source,true, rank)
 		found = true
 	end
 	if(not found)then
-    print("noo")
 		TriggerClientEvent("skadmin:adminStatus",source,false, 0)
 	end
 end)

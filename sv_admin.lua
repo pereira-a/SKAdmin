@@ -110,3 +110,63 @@ AddEventHandler("skadmin:unbanPlayer", function(license, playerName)
     if Config.settings.event_messages_console ~= nil then print(adminName .. " unbanned " .. playerName) end
   end
 end)
+
+-- RESTART RESOURCE
+RegisterServerEvent("skadmin:restartResource")
+AddEventHandler("skadmin:restartResource", function(resource)
+  if resource == "skadmin" then
+    TriggerClientEvent("chatMessage", source, "SKAdmin", Config.color.red, "You can't restart THIS resource") -- maybe you changed the name, atleast i tried :(
+  else
+    if StopResource(resource) then
+      if StartResource(resource) then
+        TriggerClientEvent("chatMessage", source, "SKAdmin", Config.color.blue, "Resource: " .. resource .. " successfully restarted.")
+      else
+        TriggerClientEvent("chatMessage", source, "SKAdmin", Config.color.red, "Can't start resource: " .. resource .. ".")
+      end
+    else
+      TriggerClientEvent("chatMessage", source, "SKAdmin", Config.color.red, "Can't stop resource: " .. resource .. ".")
+    end
+  end
+end)
+
+-- START RESOURCE
+RegisterServerEvent("skadmin:startResource")
+AddEventHandler("skadmin:startResource", function(resource)
+  if resource == "skadmin" then
+    TriggerClientEvent("chatMessage", source, "SKAdmin", Config.color.red, "You can't start THIS resource") -- maybe you changed the name, atleast i tried :(
+  else
+    if StartResource(resource) then
+      TriggerClientEvent("chatMessage", source, "SKAdmin", Config.color.blue, "Resource: " .. resource .. " successfully started.")
+    else
+      TriggerClientEvent("chatMessage", source, "SKAdmin", Config.color.red, "Can't start resource: " .. resource .. ".")
+    end
+  end
+end)
+
+-- STOP RESOURCE
+RegisterServerEvent("skadmin:stopResource")
+AddEventHandler("skadmin:stopResource", function(resource)
+  if resource == "skadmin" then
+    TriggerClientEvent("chatMessage", source, "SKAdmin", Config.color.red, "You can't stop THIS resource") -- maybe you changed the name, atleast i tried :(
+  else
+    if StopResource(resource) then
+      TriggerClientEvent("chatMessage", source, "SKAdmin", Config.color.blue, "Resource: " .. resource .. " successfully stopped.")
+    else
+      TriggerClientEvent("chatMessage", source, "SKAdmin", Config.color.red, "Can't stop resource: " .. resource .. ".")
+    end
+  end
+end)
+
+-- SET GAME TYPE
+RegisterServerEvent("skadmin:setGameType")
+AddEventHandler("skadmin:setGameType", function(string)
+  SetGameType(string)
+  TriggerClientEvent("chatMessage", source, "SKAdmin", Config.color.blue, "Server game type changed.")
+end)
+
+-- SET GAME TYPE
+RegisterServerEvent("skadmin:setMapName")
+AddEventHandler("skadmin:setMapName", function(string)
+  SetMapName(string)
+  TriggerClientEvent("chatMessage", source, "SKAdmin", Config.color.blue, "Server map name changed.")
+end)

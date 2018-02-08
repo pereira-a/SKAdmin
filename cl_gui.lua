@@ -7,10 +7,17 @@ Citizen.CreateThread(function()
     WarMenu.CreateSubMenu('player_menu', 'main', 'Player Menu')
     WarMenu.CreateSubMenu('closeMenu', 'main', 'Are you sure?')
     -- ADMIN MENU
+    WarMenu.CreateSubMenu('server_management', 'admin_menu', 'Server Management')
     WarMenu.CreateSubMenu('kick', 'admin_menu', 'Kick Player')
     WarMenu.CreateSubMenu('ban', 'admin_menu', 'Ban Player')
     WarMenu.CreateSubMenu('unban', 'admin_menu', 'Unban Player')
     WarMenu.CreateSubMenu('spectate', 'admin_menu', 'Spectate Player')
+    -- SERVER MANAGEMENT
+    WarMenu.CreateSubMenu('restart', 'server_management', 'Restart Resource')
+    WarMenu.CreateSubMenu('start', 'server_management', 'Start Resource')
+    WarMenu.CreateSubMenu('stop', 'server_management', 'Stop Resource')
+    WarMenu.CreateSubMenu('game_type', 'server_management', 'Set Game Type')
+    WarMenu.CreateSubMenu('map_name', 'server_management', 'Set Map Name')
     -- TELEPORT MENU
     WarMenu.CreateSubMenu('teleport_player', 'teleport_menu', 'Teleport to Player')
     WarMenu.CreateSubMenu('teleport_point', 'teleport_menu', 'Teleport to WayPoint')
@@ -35,10 +42,22 @@ Citizen.CreateThread(function()
         -- ADMIN MENU
         -- ---------------------------------------------------------------------
         elseif WarMenu.IsMenuOpened('admin_menu') then
-          if havePermissions("kick") and WarMenu.MenuButton('Kick Player', 'kick') then
+          if havePermissions("server_management") and WarMenu.MenuButton('Server Management', 'server_management') then
+          elseif havePermissions("kick") and WarMenu.MenuButton('Kick Player', 'kick') then
           elseif havePermissions("ban") and WarMenu.MenuButton('Ban Player', 'ban') then
           elseif havePermissions("unban") and WarMenu.MenuButton('Unban Player', 'unban') then
           elseif havePermissions("spectate") and WarMenu.MenuButton('Spectate Player', 'spectate') then
+          end
+          WarMenu.Display()
+        -- ---------------------------------------------------------------------
+        -- SERVER MANAGEMENT MENU
+        -- ---------------------------------------------------------------------
+        elseif WarMenu.IsMenuOpened('server_management') then
+          if havePermissions("server_management") and WarMenu.MenuButton('Restart Resource', 'restart') then
+          elseif havePermissions("server_management") and WarMenu.MenuButton('Start Resource', 'start') then
+          elseif havePermissions("server_management") and WarMenu.MenuButton('Stop Resource', 'stop') then
+          elseif havePermissions("server_management") and WarMenu.MenuButton('Set Game Type', 'game_type') then
+          elseif havePermissions("server_management") and WarMenu.MenuButton('Set Map Name', 'map_name') then
           end
           WarMenu.Display()
         -- ---------------------------------------------------------------------
@@ -76,6 +95,7 @@ Citizen.CreateThread(function()
           for i, player in ipairs(players) do
             TriggerServerEvent("skadmin:getRank", players[i]['serverID'])
             if WarMenu.MenuButton("["..players[i]['serverID'].."]"..players[i]['name'], 'kick') then
+              TriggerEvent("chatMessage", "SKAdmin", {0, 0, 255}, "Insert the reason to kick.")
               DisplayOnscreenKeyboard(1, 'FMMC_KEY_TIP8', '', '', '', '', '', 128+1)
               while UpdateOnscreenKeyboard() ~= 1 and UpdateOnscreenKeyboard() ~= 2 do
                 Citizen.Wait(0)
@@ -96,6 +116,7 @@ Citizen.CreateThread(function()
 
           for i, player in ipairs(players) do
             if WarMenu.MenuButton("["..players[i]['serverID'].."]"..players[i]['name'], 'ban') then
+              TriggerEvent("chatMessage", "SKAdmin", {0, 0, 255}, "Insert the reason to ban.")
               DisplayOnscreenKeyboard(1, 'FMMC_KEY_TIP8', '', '', '', '', '', 128+1)
               while UpdateOnscreenKeyboard() ~= 1 and UpdateOnscreenKeyboard() ~= 2 do
                 Citizen.Wait(0)
@@ -156,6 +177,81 @@ Citizen.CreateThread(function()
         elseif WarMenu.IsMenuOpened('teleport_point') then
           teleportToWayPoint()
           WarMenu.OpenMenu("teleport_menu")
+          WarMenu.Display()
+        -- ---------------------------------------------------------------------
+        -- RESTART RESOURCE
+        -- ---------------------------------------------------------------------
+        elseif WarMenu.IsMenuOpened('restart') then
+          TriggerEvent("chatMessage", "SKAdmin", {0, 0, 255}, "Insert the name of resource.")
+          DisplayOnscreenKeyboard(1, 'FMMC_KEY_TIP8', '', '', '', '', '', 128+1)
+          while UpdateOnscreenKeyboard() ~= 1 and UpdateOnscreenKeyboard() ~= 2 do
+            Citizen.Wait(0)
+          end
+          local result = GetOnscreenKeyboardResult()
+          if result then
+            TriggerServerEvent("skadmin:restartResource", result)
+          end
+          WarMenu.OpenMenu("admin_menu")
+          WarMenu.Display()
+        -- ---------------------------------------------------------------------
+        -- START RESOURCE
+        -- ---------------------------------------------------------------------
+        elseif WarMenu.IsMenuOpened('start') then
+          TriggerEvent("chatMessage", "SKAdmin", {0, 0, 255}, "Insert the name of resource.")
+          DisplayOnscreenKeyboard(1, 'FMMC_KEY_TIP8', '', '', '', '', '', 128+1)
+          while UpdateOnscreenKeyboard() ~= 1 and UpdateOnscreenKeyboard() ~= 2 do
+            Citizen.Wait(0)
+          end
+          local result = GetOnscreenKeyboardResult()
+          if result then
+            TriggerServerEvent("skadmin:startResource", result)
+          end
+          WarMenu.OpenMenu("admin_menu")
+          WarMenu.Display()
+        -- ---------------------------------------------------------------------
+        -- STOP RESOURCE
+        -- ---------------------------------------------------------------------
+        elseif WarMenu.IsMenuOpened('stop') then
+          TriggerEvent("chatMessage", "SKAdmin", {0, 0, 255}, "Insert the name of resource.")
+          DisplayOnscreenKeyboard(1, 'FMMC_KEY_TIP8', '', '', '', '', '', 128+1)
+          while UpdateOnscreenKeyboard() ~= 1 and UpdateOnscreenKeyboard() ~= 2 do
+            Citizen.Wait(0)
+          end
+          local result = GetOnscreenKeyboardResult()
+          if result then
+            TriggerServerEvent("skadmin:stopResource", result)
+          end
+          WarMenu.OpenMenu("admin_menu")
+          WarMenu.Display()
+        -- ---------------------------------------------------------------------
+        -- SET GAME TYPE
+        -- ---------------------------------------------------------------------
+        elseif WarMenu.IsMenuOpened('game_type') then
+          TriggerEvent("chatMessage", "SKAdmin", {0, 0, 255}, "Insert game type.")
+          DisplayOnscreenKeyboard(1, 'FMMC_KEY_TIP8', '', '', '', '', '', 128+1)
+          while UpdateOnscreenKeyboard() ~= 1 and UpdateOnscreenKeyboard() ~= 2 do
+            Citizen.Wait(0)
+          end
+          local result = GetOnscreenKeyboardResult()
+          if result then
+            TriggerServerEvent("skadmin:setGameType", result)
+          end
+          WarMenu.OpenMenu("admin_menu")
+          WarMenu.Display()
+        -- ---------------------------------------------------------------------
+        -- SET MAP NAME
+        -- ---------------------------------------------------------------------
+        elseif WarMenu.IsMenuOpened('map_name') then
+          TriggerEvent("chatMessage", "SKAdmin", {0, 0, 255}, "Insert map name.")
+          DisplayOnscreenKeyboard(1, 'FMMC_KEY_TIP8', '', '', '', '', '', 128+1)
+          while UpdateOnscreenKeyboard() ~= 1 and UpdateOnscreenKeyboard() ~= 2 do
+            Citizen.Wait(0)
+          end
+          local result = GetOnscreenKeyboardResult()
+          if result then
+            TriggerServerEvent("skadmin:setMapName", result)
+          end
+          WarMenu.OpenMenu("admin_menu")
           WarMenu.Display()
         -- ---------------------------------------------------------------------
         -- OPEN MENU

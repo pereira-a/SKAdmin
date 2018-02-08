@@ -11,7 +11,7 @@ A FiveM script which implements an admin trainer, with admin options and basic t
 ## Config
 The following features are all configurable in sv_config.lua file.
 
-### Directory Name
+### Directory Nam
 To change the name of the save directory change the value of Config.settings.saves_directory
 
 ### Admin List File
@@ -23,10 +23,13 @@ To turn of use the nil value. To turn on use the value 1.
 
 ## Notes
 1. Is extremely important to create skadmin_saves directory. You can change then name of the folder and files in Config.settings.saves_directory
+2. When using resource management, like start, stop and restart, you can't use this operations in this resource. If you do that it will crash your server.
 
 ## Features
 - [X] Admin Ranks
-- [ ] Restart server
+- [X] Server Management
+- [ ] Admin Tag Over Head
+- [ ] Admin Skin (for each rank)
 - [X] Kick Player
 - [X] Ban Player
 - [X] Unban Player
