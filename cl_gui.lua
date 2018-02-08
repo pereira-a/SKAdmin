@@ -1,20 +1,4 @@
-local admin = false
-local banlist = {}
-
-RegisterNetEvent("skadmin:adminStatus")
-AddEventHandler("skadmin:adminStatus", function(status)
-  if status then
-    admin = true
-  end
-end)
-
-RegisterNetEvent("skadmin:updateGuiBanList")
-AddEventHandler("skadmin:updateGuiBanList", function(table)
-  banlist = table
-end)
-
 Citizen.CreateThread(function()
-    TriggerServerEvent("skadmin:isAdmin")
 
     -- MAIN MENU
     WarMenu.CreateMenu('main', 'SK Admin')
@@ -51,25 +35,25 @@ Citizen.CreateThread(function()
         -- ADMIN MENU
         -- ---------------------------------------------------------------------
         elseif WarMenu.IsMenuOpened('admin_menu') then
-          if WarMenu.MenuButton('Kick Player', 'kick') then
-          elseif WarMenu.MenuButton('Ban Player', 'ban') then
-          elseif WarMenu.MenuButton('Unban Player', 'unban') then
-          elseif WarMenu.MenuButton('Spectate Player', 'spectate') then
+          if havePermissions("kick") and WarMenu.MenuButton('Kick Player', 'kick') then
+          elseif havePermissions("ban") and WarMenu.MenuButton('Ban Player', 'ban') then
+          elseif havePermissions("unban") and WarMenu.MenuButton('Unban Player', 'unban') then
+          elseif havePermissions("spectate") and WarMenu.MenuButton('Spectate Player', 'spectate') then
           end
           WarMenu.Display()
         -- ---------------------------------------------------------------------
         -- TELEPORT MENU
         -- ---------------------------------------------------------------------
         elseif WarMenu.IsMenuOpened('teleport_menu') then
-          if WarMenu.MenuButton('Teleport to Player', 'teleport_player') then
-          elseif WarMenu.MenuButton('Teleport to WayPoint', 'teleport_point') then
+          if havePermissions("teleport_player") and WarMenu.MenuButton('Teleport to Player', 'teleport_player') then
+          elseif havePermissions("teleport_waypoint") and WarMenu.MenuButton('Teleport to WayPoint', 'teleport_point') then
           end
           WarMenu.Display()
           -- ---------------------------------------------------------------------
           -- PLAYER MENU
           -- ---------------------------------------------------------------------
           elseif WarMenu.IsMenuOpened('player_menu') then
-            if WarMenu.CheckBox("Noclip", noclip, function(checked) noclip = checked end) then
+            if havePermissions("noclip") and WarMenu.CheckBox("Noclip", noclip, function(checked) noclip = checked end) then
               toggleNoClipMode()
               WarMenu.CloseMenu()
             end
@@ -90,6 +74,7 @@ Citizen.CreateThread(function()
           local players = getOnlinePlayers()
 
           for i, player in ipairs(players) do
+            TriggerServerEvent("skadmin:getRank", players[i]['serverID'])
             if WarMenu.MenuButton("["..players[i]['serverID'].."]"..players[i]['name'], 'kick') then
               DisplayOnscreenKeyboard(1, 'FMMC_KEY_TIP8', '', '', '', '', '', 128+1)
               while UpdateOnscreenKeyboard() ~= 1 and UpdateOnscreenKeyboard() ~= 2 do
@@ -127,6 +112,7 @@ Citizen.CreateThread(function()
         -- UNBAN PLAYER
         -- ---------------------------------------------------------------------
         elseif WarMenu.IsMenuOpened('unban') then
+          TriggerServerEvent("skadmin:getBanList")
           if banlist ~= {} then
             for i, ban in ipairs(banlist) do
               if WarMenu.MenuButton(ban["name"], "unban") then
@@ -180,3 +166,9 @@ Citizen.CreateThread(function()
         Citizen.Wait(0)
       end
 end)
+
+-- checks if a client haves permissions to use a commmand
+-- perm is a string (ex.: "kick", "ban", etc..)
+function havePermissions(perm)
+  return rank >= permissions[perm]
+end

@@ -1,4 +1,38 @@
 local maxPlayers = 32
+admin = false
+banlist = {}
+permissions = {}
+rank = 0 -- Rank 0 doesn't have admin rights
+targetRank = 0
+
+Citizen.CreateThread(function()
+  TriggerServerEvent("skadmin:isAdmin", GetPlayerServerId(source))
+  TriggerServerEvent("skadmin:getPermissions")
+end)
+
+RegisterNetEvent("skadmin:adminStatus")
+AddEventHandler("skadmin:adminStatus", function(status, ranke)
+  if status then
+    admin = true
+    rank = ranke
+  end
+end)
+
+RegisterNetEvent("skadmin:updateGuiBanList")
+AddEventHandler("skadmin:updateGuiBanList", function(banTable)
+  banlist = banTable
+end)
+
+RegisterNetEvent("skadmin:receivePermissions")
+AddEventHandler("skadmin:receivePermissions", function(permTable)
+  permissions = permTable
+end)
+
+RegisterNetEvent("skadmin:receiveRank")
+AddEventHandler("skadmin:receiveRank", function(tr)
+  targetRank = tr
+end)
+
 
 function getOnlinePlayers()
   local players = {}
@@ -25,36 +59,43 @@ function spectatePlayer(targetId)
   local playerPed = GetPlayerPed(-1)
   local targetPed = GetPlayerPed(targetId)
 
-  if not IsScreenFadedOut() and not IsScreenFadingOut() then
-    DoScreenFadeOut(1000)
-    while (not IsScreenFadedOut()) do
-		    Wait(0)
-    end
+  TriggerServerEvent("skadmin:getRank", targetId)
+  Citizen.Wait(5000)
+  if rank > targetRank  then
+    Citizen.Trace("Rank: ".. rank .. "Target: " .. targetRank)
 
-    --local x,y,z = table.unpack(GetEntityCoords(GetPlayerPed(targetId),true))
+    if not IsScreenFadedOut() and not IsScreenFadingOut() then
+      DoScreenFadeOut(1000)
+      while (not IsScreenFadedOut()) do
+  		    Wait(0)
+      end
 
-    FreezeEntityPosition(playerPed, true)
-    RequestCollisionAtCoord(GetEntityCoords(targetPed))
-    NetworkSetInSpectatorMode(true, targetId)
+      --local x,y,z = table.unpack(GetEntityCoords(GetPlayerPed(targetId),true))
 
-    if(IsScreenFadedOut()) then
-      DoScreenFadeIn(1000)
-    end
+      FreezeEntityPosition(playerPed, true)
+      RequestCollisionAtCoord(GetEntityCoords(targetPed))
+      NetworkSetInSpectatorMode(true, targetId)
 
-    TriggerClientEvent("chatMessage", -1, "SKAdmin", {255, 0, 0}, "In spectate mode. To exit press BACKSPACE")
+      if(IsScreenFadedOut()) then
+        DoScreenFadeIn(1000)
+      end
 
-    while true do
-      Citizen.Wait(0)
-      if IsControlJustPressed(3, 177) then
+      TriggerEvent("chatMessage", "SKAdmin", {255, 0, 0}, "In spectate mode. To exit press BACKSPACE")
 
-        FreezeEntityPosition(playerPed, false)
-        RequestCollisionAtCoord(GetEntityCoords(playerPed))
-        NetworkSetInSpectatorMode(0, playerPed)
-        break
+      while true do
+        Citizen.Wait(0)
+        if IsControlJustPressed(3, 177) then
+
+          FreezeEntityPosition(playerPed, false)
+          RequestCollisionAtCoord(GetEntityCoords(playerPed))
+          NetworkSetInSpectatorMode(0, playerPed)
+          break
+        end
       end
     end
+  else
+    TriggerEvent("chatMessage", "SKAdmin", {255, 0, 0}, "You can't spectate this player.")
   end
-
 end
 
 -- TELEPORT TO PLAYER EVENT

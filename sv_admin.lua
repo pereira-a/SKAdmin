@@ -14,9 +14,13 @@ RegisterServerEvent("skadmin:kickPlayer")
 AddEventHandler("skadmin:kickPlayer", function(id, reason)
   local adminName = GetPlayerName(source)
   local playerName = GetPlayerName(id)
-  --DropPlayer(id, string.format(strings.kicked, playerName, reason))
-  if Config.settings.event_messages_console ~= nil then print(adminName .. " kicked " .. playerName .. ". Reason: " .. reason) end
-  if Config.settings.event_messages ~= nil then TriggerClientEvent("chatMessage", -1, "Server", Config.color.blue, playerName .. " kicked from server by " .. adminName .. ".") end
+  if getRank(source) >= getRank(id) then
+    DropPlayer(id, string.format(strings.kicked, playerName, reason))
+    if Config.settings.event_messages_console ~= nil then print(adminName .. " kicked " .. playerName .. ". Reason: " .. reason) end
+    if Config.settings.event_messages ~= nil then TriggerClientEvent("chatMessage", -1, "Server", Config.color.blue, playerName .. " kicked from server by " .. adminName .. ".") end
+  else
+    TriggerClientEvent("chatMessage", source, "SKAdmin", Config.color.red, "You can can't kick " .. playerName)
+  end
 end)
 
 -- BAN PLAYER EVENT
@@ -27,15 +31,18 @@ AddEventHandler("skadmin:banPlayer", function(player, reason)
   local playerName = string.gsub(player["name"], ";", "")
   reason = string.gsub(reason, ";", "")
 
-  for i, ident in ipairs(playerIdent) do
-
-    if string.find(ident, "license:") then
-      local save_reason = reason.. string.format(strings.reason_add, adminName, playerName)
-      DATA:appendToFile(dir .. banfile ,ident..";"..save_reason .. "\r\n") -- [license];[reason];[admin name];[playername]
-      -- DropPlayer(player["serverID"], string.format(strings.banned, reason))
-      if Config.settings.event_messages_console ~= nil then print(adminName .. " banned " .. playerName .. ". Reason: " .. reason) end
-      if Config.settings.event_messages ~= nil then TriggerClientEvent("chatMessage", -1, "Server", Config.color.blue, playerName .. " banned from server by " .. adminName .. ".") end
+  if getRank(source) >= getRank(id) then
+    for i, ident in ipairs(playerIdent) do
+      if string.find(ident, "license:") then
+        local save_reason = reason.. string.format(strings.reason_add, adminName, playerName)
+        DATA:appendToFile(dir .. banfile ,ident..";"..save_reason .. "\r\n") -- [license];[reason];[admin name];[playername]
+        DropPlayer(player["serverID"], string.format(strings.banned, reason))
+        if Config.settings.event_messages_console ~= nil then print(adminName .. " banned " .. playerName .. ". Reason: " .. reason) end
+        if Config.settings.event_messages ~= nil then TriggerClientEvent("chatMessage", -1, "Server", Config.color.blue, playerName .. " banned from server by " .. adminName .. ".") end
+      end
     end
+  else
+    TriggerClientEvent("chatMessage", source, "SKAdmin", Config.color.red, "You can't ban " .. playerName)
   end
 end)
 

@@ -19,12 +19,14 @@ To change the name of this file change the value of Config.settings.banlist_file
 
 ### Event Chat Messages & Event Console Messages
 You can turn on and off this in Config.settings.event_messages and Config.settings.event_messages_console, respectively.
-To turn of use the nil value. To turn on use the value 1
+To turn of use the nil value. To turn on use the value 1.
 
 ## Notes
 1. Is extremely important to create skadmin_saves directory. You can change then name of the folder and files in Config.settings.saves_directory
 
 ## Features
+- [X] Admin Ranks
+- [ ] Restart server
 - [X] Kick Player
 - [X] Ban Player
 - [X] Unban Player
@@ -33,16 +35,18 @@ To turn of use the nil value. To turn on use the value 1
 - [X] Teleport to WayPoint
 - [X] Noclip
 - [X] Event Chat Messages & Event Console Messages
-- [ ] Admin Ranks
 - [ ] Warnings
+- [ ] Admins Online
+- [ ] Add Admins
 
 ## TODO List
 - [X] DATA:removeLine
 - [X] Finish Unban Player
 - [X] Event Messages
 - [ ] Implementation with MySQL
-- [ ] Lower ranks cant spectate, kick, ban, etc higher raks
+- [X] Lower ranks cant spectate, kick, ban, etc higher raks
 - [ ] Instructions text in noclip
+- [ ] Higher ranks don't appear in admin options list (??)
 
 ## Credits
 [Warmenu by Warxander](https://github.com/adikanchukov/warmenu) which i used to make the menus.  
