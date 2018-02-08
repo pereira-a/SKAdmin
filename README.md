@@ -59,6 +59,17 @@ To turn of use the nil value. To turn on use the value 1.
 | Enter      | Select option                               |
 | Backspace  | Go back                                     |
 
+## NoClip Controls
+| Key   | Action              |
+|-------|---------------------|
+| Shift | Change noclip speed |
+| Q     | Move Upwards        |
+| E     | Move Downwards      |
+| W     | Move Forwards       |
+| S     | Move Backwards      |
+| A     | Rotate Left         |
+| D     | Rotate Right        |
+
 ## Credits
 [Warmenu by Warxander](https://github.com/adikanchukov/warmenu) which i used to make the menus.  
 [Mellotrainer by TheStonedTurtle](https://github.com/TheStonedTurtle/mellotrainer) for the noclip.  
