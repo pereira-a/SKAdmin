@@ -105,7 +105,6 @@ RegisterServerEvent("skadmin:unbanPlayer")
 AddEventHandler("skadmin:unbanPlayer", function(license, playerName)
   if license ~= nil then
     local adminName = GetPlayerName(source)
-
     DATA:removeLine(dir .. banfile, license)
     if Config.settings.event_messages_console ~= nil then print(adminName .. " unbanned " .. playerName) end
   end

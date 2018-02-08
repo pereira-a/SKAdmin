@@ -51,6 +51,14 @@ To turn of use the nil value. To turn on use the value 1.
 - [ ] Instructions text in noclip
 - [ ] Higher ranks don't appear in admin options list (??)
 
+## Controls
+| Key        | Action                                      |
+|------------|---------------------------------------------|
+| M          | Open Menu                                   |
+| Arrow Keys | Move up, down, right and left, respectively |
+| Enter      | Select option                               |
+| Backspace  | Go back                                     |
+
 ## Credits
 [Warmenu by Warxander](https://github.com/adikanchukov/warmenu) which i used to make the menus.  
 [Mellotrainer by TheStonedTurtle](https://github.com/TheStonedTurtle/mellotrainer) for the noclip.  
