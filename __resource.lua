@@ -5,10 +5,12 @@ client_scripts {
   'cl_general.lua',
   'cl_gui.lua',
   'cl_admin.lua',
-  'cl_noclip.lua'
+  'cl_noclip.lua',
+  'cl_player.lua',
 }
 
 server_script 'sv_main.lua'
 server_script 'sv_config.lua'
 server_script 'sv_admin.lua'
 server_script 'sv_file_manipulation.lua'
+server_script 'sv_player.lua'

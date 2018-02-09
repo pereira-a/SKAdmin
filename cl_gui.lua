@@ -23,6 +23,20 @@ Citizen.CreateThread(function()
     WarMenu.CreateSubMenu('teleport_point', 'teleport_menu', 'Teleport to WayPoint')
     -- PLAYER MENU
     local noclip = false
+    local godmode = false
+    local infinite_stamina = false
+    local invisibility = false
+    local drunkMode =  false
+    local silentMode =  false
+    local allIgnore = false
+    local policeIgnore = false
+    local nerverWanted = false
+    local fastSwim =  false
+    local fastRun = false
+    local superJump =  false
+    local noRagDoll = false
+    local nightVision = false
+    local thermalVision = false
 
     while true do
         -- ---------------------------------------------------------------------
@@ -75,6 +89,8 @@ Citizen.CreateThread(function()
             if havePermissions("noclip") and WarMenu.CheckBox("Noclip", noclip, function(checked) noclip = checked end) then
               toggleNoClipMode()
               WarMenu.CloseMenu()
+            elseif havePermissions("godmode") and WarMenu.CheckBox("Godmode", godmode, function(checked) godmode = checked end) then
+              TriggerServerEvent("skadmin:svtoggleGodmode",GetPlayerServerId(source))
             end
             WarMenu.Display()
         -- ---------------------------------------------------------------------

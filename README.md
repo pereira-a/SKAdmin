@@ -50,11 +50,12 @@ To turn of use the nil value. To turn on use the value 1.
 - [X] Lower ranks cant spectate, kick, ban, etc higher raks
 - [ ] Instructions text in noclip
 - [ ] Higher ranks don't appear in admin options list (??)
+- [ ] Resource's list
 
 ## Ranks
 | Rank          | Id | Permissions                                                                                |
 |---------------|----|--------------------------------------------------------------------------------------------|
-| Moderador     | 1  | Kick, Teleport to Player, Teleport to Waypoint                                             |
+| Moderador     | 1  | Kick, Teleport to Player, Teleport to Waypoint, Godmode                                             |
 | Administrator | 2  | Ban, Unban, Noclip and all above                                                           |
 | Owner         | 3  | Restart Resource, Start Resource, Stop Resource, Set Game Type, Set Map Name and all above |
 

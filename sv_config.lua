@@ -26,6 +26,7 @@ Config.permissions = {
   ["teleport_player"] = 1,
   ["teleport_waypoint"] = 1,
   ["noclip"] = 2,
+  ["godmode"] = 1,
 }
 
 Config.color = {
