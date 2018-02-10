@@ -26,7 +26,18 @@ Config.permissions = {
   ["teleport_player"] = 1,
   ["teleport_waypoint"] = 1,
   ["noclip"] = 2,
+  ["max_health"] = 1,
+  ["max_armor"] = 1,
   ["godmode"] = 1,
+  ["infStamina"] = 1,
+  ["invisibility"] = 2,
+  ["neverWanted"] = 1,
+  ["increse_wanted"] = 1,
+  ["clear_wanted"] = 1,
+  ["fastSwim"] = 1,
+  ["fastSprint"] = 1,
+  ["superJump"] = 1,
+  ["noRagDoll"] = 1,
 }
 
 Config.color = {

@@ -22,13 +22,14 @@ Citizen.CreateThread(function()
     WarMenu.CreateSubMenu('teleport_player', 'teleport_menu', 'Teleport to Player')
     WarMenu.CreateSubMenu('teleport_point', 'teleport_menu', 'Teleport to WayPoint')
     -- PLAYER MENU
+    WarMenu.CreateSubMenu('increse_wanted', 'player_menu', 'Increase Wanted Level')
+    WarMenu.CreateSubMenu('clear_wanted', 'player_menu', 'Clear Wanted Level')
+    WarMenu.CreateSubMenu('max_health', 'player_menu', 'Max Health')
+    WarMenu.CreateSubMenu('max_armor', 'player_menu', 'Max Armor')
     local noclip = false
     local godmode = false
     local infinite_stamina = false
     local invisibility = false
-    local drunkMode =  false
-    local silentMode =  false
-    local allIgnore = false
     local policeIgnore = false
     local nerverWanted = false
     local fastSwim =  false
@@ -89,8 +90,34 @@ Citizen.CreateThread(function()
             if havePermissions("noclip") and WarMenu.CheckBox("Noclip", noclip, function(checked) noclip = checked end) then
               toggleNoClipMode()
               WarMenu.CloseMenu()
-            elseif havePermissions("godmode") and WarMenu.CheckBox("Godmode", godmode, function(checked) godmode = checked end) then
+            elseif havePermissions("max_health") and WarMenu.MenuButton('Max Health', 'max_health') then
+              TriggerServerEvent("skadmin:svmaxHealth",GetPlayerServerId(source))
+              WarMenu.OpenMenu('player_menu')
+            elseif havePermissions("max_armor") and WarMenu.MenuButton('Max Amor', 'max_armor') then
+              TriggerServerEvent("skadmin:svmaxArmor",GetPlayerServerId(source))
+              WarMenu.OpenMenu('player_menu')
+            elseif havePermissions("godmode") and WarMenu.CheckBox("God Mode", godmode, function(checked) godmode = checked end) then
               TriggerServerEvent("skadmin:svtoggleGodmode",GetPlayerServerId(source))
+            elseif havePermissions("infStamina") and WarMenu.CheckBox("Infinite Stamina", infinite_stamina, function(checked) infinite_stamina = checked end) then
+              TriggerServerEvent("skadmin:svtoggleInfStamina",GetPlayerServerId(source))
+            elseif havePermissions("invisibility") and WarMenu.CheckBox("Invisibility", invisibility, function(checked) invisibility = checked end) then
+              TriggerServerEvent("skadmin:svtoggleInvisibility",GetPlayerServerId(source))
+            elseif havePermissions("increse_wanted") and WarMenu.MenuButton('Increse Wanted Level', 'increse_wanted') then
+              TriggerServerEvent("skadmin:svincreseWantedLevel",GetPlayerServerId(source))
+              WarMenu.OpenMenu('player_menu')
+            elseif havePermissions("clear_wanted") and WarMenu.MenuButton('Clear Wanted Level', 'clear_wanted') then
+              TriggerServerEvent("skadmin:svclearWantedLevel",GetPlayerServerId(source))
+              WarMenu.OpenMenu('player_menu')
+            elseif havePermissions("neverWanted") and WarMenu.CheckBox("Never Wanted", neverWanted, function(checked) neverWanted = checked end) then
+              TriggerServerEvent("skadmin:svtoggleNeverWanted",GetPlayerServerId(source))
+            elseif havePermissions("fastSwim") and WarMenu.CheckBox("Fast Swim", fastSwim, function(checked) fastSwim = checked end) then
+              TriggerServerEvent("skadmin:svtoggleFastSwim",GetPlayerServerId(source))
+            elseif havePermissions("fastSprint") and WarMenu.CheckBox("Fast Sprint", fastSprint, function(checked) fastSprint = checked end) then
+              TriggerServerEvent("skadmin:svtoggleFastSprint",GetPlayerServerId(source))
+            elseif havePermissions("superJump") and WarMenu.CheckBox("Fast Jump", superJump, function(checked) superJump = checked end) then
+              TriggerServerEvent("skadmin:svtoggleSuperJump",GetPlayerServerId(source))
+            elseif havePermissions("noRagDoll") and WarMenu.CheckBox("No Rag Doll", noRagDoll, function(checked) noRagDoll = checked end) then
+              TriggerServerEvent("skadmin:svtoggleNoRagDoll",GetPlayerServerId(source))
             end
             WarMenu.Display()
         -- ---------------------------------------------------------------------

@@ -51,12 +51,15 @@ To turn of use the nil value. To turn on use the value 1.
 - [ ] Instructions text in noclip
 - [ ] Higher ranks don't appear in admin options list (??)
 - [ ] Resource's list
+- [ ] Stop Engine
+- [ ] Bodyguards
+- [ ] Night and Thermal Vision
 
 ## Ranks
 | Rank          | Id | Permissions                                                                                |
 |---------------|----|--------------------------------------------------------------------------------------------|
-| Moderador     | 1  | Kick, Teleport to Player, Teleport to Waypoint, Godmode                                             |
-| Administrator | 2  | Ban, Unban, Noclip and all above                                                           |
+| Moderador     | 1  | Kick, Teleport to Player, Teleport to Waypoint, Godmode, Infinite Stamina, Max Health, Max Armor, Never Wanted, Increase Wanted Level, Clear Wanted Level, Fast Swim, Fast Sprint, Super Jump, No Rag Doll                                            |
+| Administrator | 2  | Ban, Unban, Noclip, Invisibility and all above                                                           |
 | Owner         | 3  | Restart Resource, Start Resource, Stop Resource, Set Game Type, Set Map Name and all above |
 
 ## Controls
