@@ -27,16 +27,12 @@ To turn of use the nil value. To turn on use the value 1.
 
 ## Features
 - [X] Admin Ranks
-- [X] Server Management
 - [ ] Admin Tag Over Head
 - [ ] Admin Skin (for each rank)
-- [X] Kick Player
-- [X] Ban Player
-- [X] Unban Player
-- [X] Spectate Player
-- [X] Teleport to Player
-- [X] Teleport to WayPoint
-- [X] Noclip
+- [X] Admin Menu
+- [X] Server Management Menu
+- [X] Teleport Menu
+- [X] Player Menu
 - [X] Event Chat Messages & Event Console Messages
 - [ ] Warnings
 - [ ] Admins Online
@@ -55,6 +51,13 @@ To turn of use the nil value. To turn on use the value 1.
 - [ ] Bodyguards
 - [ ] Night and Thermal Vision
 
+## Menus
+| Menu              | Features                                                                                                                   |
+|-------------------|----------------------------------------------------------------------------------------------------------------------------|
+| Admin Menu        | Kick Player, Ban Player, Unban Player, Spectate Player                                                                     |
+| Server Management | Restart Resource, Start Resource, Stop Resource, Set Game Type, Set Map Name                                               |
+| Teleport Menu     | Teleport to Player, Teleport to Waypoint                                                                                   |
+| Player Menu       | NoClip, God Mode, Infinite Stamina, Invisibility, Polic Ignore, Never Wanted, Fast Swim, Fast Run, Super Jump, No Rag Doll |
 ## Ranks
 | Rank          | Id | Permissions                                                                                |
 |---------------|----|--------------------------------------------------------------------------------------------|
