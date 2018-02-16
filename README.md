@@ -11,20 +11,20 @@ A FiveM script which implements an admin trainer, with admin options and basic t
 ## Config
 
 ### Directory Name
-In sv_config.lua:
+In sv_config.lua:  
 To change the name of the save directory change the value of Config.settings.saves_directory
 
 ### Admin List File
-In sv_config.lua:
+In sv_config.lua:  
 To change the name of this file change the value of Config.settings.banlist_file
 
 ### Event Chat Messages & Event Console Messages
-In sv_config.lua:
+In sv_config.lua:  
 You can turn on and off this in Config.settings.event_messages and Config.settings.event_messages_console, respectively.
 To turn off use the nil value. To turn on use the value 1.
 
 ### Car used by Vehicle Gun
-In cl_general:
+In cl_general:  
 Change the value of vehicleGunVehicle
 
 ## Notes
