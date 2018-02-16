@@ -40,7 +40,7 @@ Change the value of vehicleGunVehicle
 - [X] Teleport Menu
 - [X] Player Menu
 - [ ] Weapon Menu
-- [ ] Vehicle Menu
+- [X] Vehicle Menu
 - [ ] Skin Menu
 - [ ] Online Menu
 - [ ] Animation Menu
@@ -77,9 +77,9 @@ Change the value of vehicleGunVehicle
 ## Ranks
 | Rank          | Id | Permissions                                                                                |
 |---------------|----|--------------------------------------------------------------------------------------------|
-| Moderador     | 1  | Kick, Teleport to Player, Teleport to Waypoint, Godmode, Infinite Stamina, Max Health, Max Armor, Never Wanted, Increase Wanted Level, Clear Wanted Level, Fast Swim, Fast Sprint, Super Jump, No Rag Doll, Give and Remove all Weapons                                                             |
-| Administrator | 2  | Ban, Unban, Noclip, Invisibility and all above                                             |
-| Owner         | 3  | Restart Resource, Start Resource, Stop Resource, Set Game Type, Set Map Name and all above |
+| Moderador     | 1  | Kick, Teleport to Player, Teleport to Waypoint, Godmode, Infinite Stamina, Max Health, Max Armor, Never Wanted, Increase Wanted Level, Clear Wanted Level, Fast Swim, Fast Sprint, Super Jump, No Rag Doll, Give and Remove all Weapons , Fire Ammo, One Shot Kill, Explosive Ammo, Infinite Ammo                                                            |
+| Administrator | 2  | Ban, Unban, Noclip, Invisibility, Teleport Gun, Vehicle Gun and all above                                             |
+| Owner         | 3  | Restart Resource, Start Resource, Stop Resource, Set Game Type, Set Map Name, Delete Gun, Whale Gun and all above |
 
 ## Controls
 | Key        | Action                                      |
