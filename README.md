@@ -39,8 +39,8 @@ Change the value of vehicleGunVehicle
 - [X] Server Management Menu
 - [X] Teleport Menu
 - [X] Player Menu
-- [ ] Weapon Menu
-- [X] Vehicle Menu
+- [X] Weapon Menu
+- [ ] Vehicle Menu
 - [ ] Skin Menu
 - [ ] Online Menu
 - [ ] Animation Menu
