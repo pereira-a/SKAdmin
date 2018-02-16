@@ -58,8 +58,8 @@ AddEventHandler("skadmin:toggleInvisibility", function()
 end)
 
 -- INCREASE WANTED LEVEL
-RegisterNetEvent("skadmin:increseWantedLevel")
-AddEventHandler("skadmin:increseWantedLevel", function()
+RegisterNetEvent("skadmin:increaseWantedLevel")
+AddEventHandler("skadmin:increaseWantedLevel", function()
   local level = GetPlayerWantedLevel(PlayerId())
   if level < 5 then
     SetPlayerWantedLevel(PlayerId(), level + 1, false)

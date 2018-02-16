@@ -5,6 +5,7 @@ Citizen.CreateThread(function()
     WarMenu.CreateSubMenu('admin_menu', 'main', 'Admin Menu')
     WarMenu.CreateSubMenu('teleport_menu', 'main', 'Teleport Menu')
     WarMenu.CreateSubMenu('player_menu', 'main', 'Player Menu')
+    WarMenu.CreateSubMenu('weapon_menu', 'main', 'Weapon Menu')
     WarMenu.CreateSubMenu('closeMenu', 'main', 'Are you sure?')
     -- ADMIN MENU
     WarMenu.CreateSubMenu('server_management', 'admin_menu', 'Server Management')
@@ -22,7 +23,7 @@ Citizen.CreateThread(function()
     WarMenu.CreateSubMenu('teleport_player', 'teleport_menu', 'Teleport to Player')
     WarMenu.CreateSubMenu('teleport_point', 'teleport_menu', 'Teleport to WayPoint')
     -- PLAYER MENU
-    WarMenu.CreateSubMenu('increse_wanted', 'player_menu', 'Increase Wanted Level')
+    WarMenu.CreateSubMenu('increase_wanted', 'player_menu', 'Increase Wanted Level')
     WarMenu.CreateSubMenu('clear_wanted', 'player_menu', 'Clear Wanted Level')
     WarMenu.CreateSubMenu('max_health', 'player_menu', 'Max Health')
     WarMenu.CreateSubMenu('max_armor', 'player_menu', 'Max Armor')
@@ -38,6 +39,19 @@ Citizen.CreateThread(function()
     local noRagDoll = false
     local nightVision = false
     local thermalVision = false
+    -- WEAPON MENU
+    WarMenu.CreateSubMenu('give_all', 'weapon_menu', 'Give All Weapons')
+    WarMenu.CreateSubMenu('remove_all', 'weapon_menu', 'Remove All Weapons')
+    WarMenu.CreateSubMenu('explosiveAmmo_menu', 'weapon_menu', 'Fire Ammo')
+    WarMenu.CreateSubMenu('explosion_type', 'explosiveAmmo_menu', 'Explosion Type')
+    local deleteGun = false
+    local fireAmmo = false
+    local oneShotKill = false
+    local explossiveAmmo = false
+    local infiniteAmmo = false
+    local teleportGun = false
+    local vehicleGun = false
+    local whaleGun = false
 
     while true do
         -- ---------------------------------------------------------------------
@@ -49,6 +63,7 @@ Citizen.CreateThread(function()
           elseif WarMenu.MenuButton('Admin Options', 'admin_menu') then
           elseif WarMenu.MenuButton('Teleport Menu', 'teleport_menu') then
           elseif WarMenu.MenuButton('Player Menu', 'player_menu') then
+          elseif WarMenu.MenuButton('Weapon Menu', 'weapon_menu') then
           elseif WarMenu.MenuButton('Exit', 'closeMenu') then
           end
 
@@ -83,43 +98,70 @@ Citizen.CreateThread(function()
           elseif havePermissions("teleport_waypoint") and WarMenu.MenuButton('Teleport to WayPoint', 'teleport_point') then
           end
           WarMenu.Display()
-          -- ---------------------------------------------------------------------
-          -- PLAYER MENU
-          -- ---------------------------------------------------------------------
-          elseif WarMenu.IsMenuOpened('player_menu') then
-            if havePermissions("noclip") and WarMenu.CheckBox("Noclip", noclip, function(checked) noclip = checked end) then
-              toggleNoClipMode()
-              WarMenu.CloseMenu()
-            elseif havePermissions("max_health") and WarMenu.MenuButton('Max Health', 'max_health') then
-              TriggerServerEvent("skadmin:svmaxHealth",GetPlayerServerId(source))
-              WarMenu.OpenMenu('player_menu')
-            elseif havePermissions("max_armor") and WarMenu.MenuButton('Max Amor', 'max_armor') then
-              TriggerServerEvent("skadmin:svmaxArmor",GetPlayerServerId(source))
-              WarMenu.OpenMenu('player_menu')
-            elseif havePermissions("godmode") and WarMenu.CheckBox("God Mode", godmode, function(checked) godmode = checked end) then
-              TriggerServerEvent("skadmin:svtoggleGodmode",GetPlayerServerId(source))
-            elseif havePermissions("infStamina") and WarMenu.CheckBox("Infinite Stamina", infinite_stamina, function(checked) infinite_stamina = checked end) then
-              TriggerServerEvent("skadmin:svtoggleInfStamina",GetPlayerServerId(source))
-            elseif havePermissions("invisibility") and WarMenu.CheckBox("Invisibility", invisibility, function(checked) invisibility = checked end) then
-              TriggerServerEvent("skadmin:svtoggleInvisibility",GetPlayerServerId(source))
-            elseif havePermissions("increse_wanted") and WarMenu.MenuButton('Increse Wanted Level', 'increse_wanted') then
-              TriggerServerEvent("skadmin:svincreseWantedLevel",GetPlayerServerId(source))
-              WarMenu.OpenMenu('player_menu')
-            elseif havePermissions("clear_wanted") and WarMenu.MenuButton('Clear Wanted Level', 'clear_wanted') then
-              TriggerServerEvent("skadmin:svclearWantedLevel",GetPlayerServerId(source))
-              WarMenu.OpenMenu('player_menu')
-            elseif havePermissions("neverWanted") and WarMenu.CheckBox("Never Wanted", neverWanted, function(checked) neverWanted = checked end) then
-              TriggerServerEvent("skadmin:svtoggleNeverWanted",GetPlayerServerId(source))
-            elseif havePermissions("fastSwim") and WarMenu.CheckBox("Fast Swim", fastSwim, function(checked) fastSwim = checked end) then
-              TriggerServerEvent("skadmin:svtoggleFastSwim",GetPlayerServerId(source))
-            elseif havePermissions("fastSprint") and WarMenu.CheckBox("Fast Sprint", fastSprint, function(checked) fastSprint = checked end) then
-              TriggerServerEvent("skadmin:svtoggleFastSprint",GetPlayerServerId(source))
-            elseif havePermissions("superJump") and WarMenu.CheckBox("Fast Jump", superJump, function(checked) superJump = checked end) then
-              TriggerServerEvent("skadmin:svtoggleSuperJump",GetPlayerServerId(source))
-            elseif havePermissions("noRagDoll") and WarMenu.CheckBox("No Rag Doll", noRagDoll, function(checked) noRagDoll = checked end) then
-              TriggerServerEvent("skadmin:svtoggleNoRagDoll",GetPlayerServerId(source))
-            end
-            WarMenu.Display()
+        -- ---------------------------------------------------------------------
+        -- PLAYER MENU
+        -- ---------------------------------------------------------------------
+        elseif WarMenu.IsMenuOpened('player_menu') then
+          if havePermissions("noclip") and WarMenu.CheckBox("Noclip", noclip, function(checked) noclip = checked end) then
+            toggleNoClipMode()
+            WarMenu.CloseMenu()
+          elseif havePermissions("max_health") and WarMenu.MenuButton('Max Health', 'max_health') then
+            TriggerServerEvent("skadmin:svmaxHealth",GetPlayerServerId(source))
+            WarMenu.OpenMenu('player_menu')
+          elseif havePermissions("max_armor") and WarMenu.MenuButton('Max Amor', 'max_armor') then
+            TriggerServerEvent("skadmin:svmaxArmor",GetPlayerServerId(source))
+            WarMenu.OpenMenu('player_menu')
+          elseif havePermissions("godmode") and WarMenu.CheckBox("God Mode", godmode, function(checked) godmode = checked end) then
+            TriggerServerEvent("skadmin:svtoggleGodmode",GetPlayerServerId(source))
+          elseif havePermissions("infStamina") and WarMenu.CheckBox("Infinite Stamina", infinite_stamina, function(checked) infinite_stamina = checked end) then
+            TriggerServerEvent("skadmin:svtoggleInfStamina",GetPlayerServerId(source))
+          elseif havePermissions("invisibility") and WarMenu.CheckBox("Invisibility", invisibility, function(checked) invisibility = checked end) then
+            TriggerServerEvent("skadmin:svtoggleInvisibility",GetPlayerServerId(source))
+          elseif havePermissions("increase_wanted") and WarMenu.MenuButton('Increase Wanted Level', 'increase_wanted') then
+            TriggerServerEvent("skadmin:svincreaseWantedLevel",GetPlayerServerId(source))
+            WarMenu.OpenMenu('player_menu')
+          elseif havePermissions("clear_wanted") and WarMenu.MenuButton('Clear Wanted Level', 'clear_wanted') then
+            TriggerServerEvent("skadmin:svclearWantedLevel",GetPlayerServerId(source))
+            WarMenu.OpenMenu('player_menu')
+          elseif havePermissions("neverWanted") and WarMenu.CheckBox("Never Wanted", neverWanted, function(checked) neverWanted = checked end) then
+            TriggerServerEvent("skadmin:svtoggleNeverWanted",GetPlayerServerId(source))
+          elseif havePermissions("fastSwim") and WarMenu.CheckBox("Fast Swim", fastSwim, function(checked) fastSwim = checked end) then
+            TriggerServerEvent("skadmin:svtoggleFastSwim",GetPlayerServerId(source))
+          elseif havePermissions("fastSprint") and WarMenu.CheckBox("Fast Sprint", fastSprint, function(checked) fastSprint = checked end) then
+            TriggerServerEvent("skadmin:svtoggleFastSprint",GetPlayerServerId(source))
+          elseif havePermissions("superJump") and WarMenu.CheckBox("Super Jump", superJump, function(checked) superJump = checked end) then
+            TriggerServerEvent("skadmin:svtoggleSuperJump",GetPlayerServerId(source))
+          elseif havePermissions("noRagDoll") and WarMenu.CheckBox("No Rag Doll", noRagDoll, function(checked) noRagDoll = checked end) then
+            TriggerServerEvent("skadmin:svtoggleNoRagDoll",GetPlayerServerId(source))
+          end
+          WarMenu.Display()
+        -- ---------------------------------------------------------------------
+        -- WEAPON MENU
+        -- ---------------------------------------------------------------------
+        elseif WarMenu.IsMenuOpened('weapon_menu') then
+          if havePermissions("give_all") and WarMenu.MenuButton('Give All Weapons', 'give_all') then
+            TriggerServerEvent("skadmin:svgiveAllWeapons",GetPlayerServerId(source))
+            WarMenu.OpenMenu('weapon_menu')
+          elseif havePermissions("remove_all") and WarMenu.MenuButton('Remove All Weapons', 'remove_all') then
+            TriggerServerEvent("skadmin:svremoveAllWeapons",GetPlayerServerId(source))
+            WarMenu.OpenMenu('weapon_menu')
+          elseif havePermissions("deleteGun") and WarMenu.CheckBox("Delete Gun", deleteGun, function(checked) deleteGun = checked end) then
+            TriggerServerEvent("skadmin:svtoggleDeleteGun",GetPlayerServerId(source))
+          elseif havePermissions("teleportGun") and WarMenu.CheckBox("Teleport Gun", teleportGun, function(checked) teleportGun = checked end) then
+            TriggerServerEvent("skadmin:svtoggleTeleportGun",GetPlayerServerId(source))
+          elseif havePermissions("vehicleGun") and WarMenu.CheckBox("Vehicle Gun", vehicleGun, function(checked) vehicleGun = checked end) then
+            TriggerServerEvent("skadmin:svtoggleVehicleGun",GetPlayerServerId(source))
+          elseif havePermissions("whaleGun") and WarMenu.CheckBox("Whale Gun", whaleGun, function(checked) whaleGun = checked end) then
+            TriggerServerEvent("skadmin:svtoggleWhaleGun",GetPlayerServerId(source))
+          elseif havePermissions("explossiveAmmo") and WarMenu.MenuButton('Explosive Ammo', 'explosiveAmmo_menu') then
+          elseif havePermissions("fireAmmo") and WarMenu.CheckBox("Fire Ammo", fireAmmo, function(checked) fireAmmo = checked end) then
+            TriggerServerEvent("skadmin:svtoggleFireAmmo",GetPlayerServerId(source))
+          elseif havePermissions("infiniteAmmo") and WarMenu.CheckBox("Infinite Ammo", infiniteAmmo, function(checked) infiniteAmmo = checked end) then
+            TriggerServerEvent("skadmin:svtoggleInfiniteAmmo",GetPlayerServerId(source))
+          elseif havePermissions("oneShotKill") and WarMenu.CheckBox("One Shot Kill", oneShotKill, function(checked) oneShotKill = checked end) then
+            TriggerServerEvent("skadmin:svtoggleOneShotKill",GetPlayerServerId(source))
+          end
+          WarMenu.Display()
         -- ---------------------------------------------------------------------
         -- CLOSE MENU
         -- ---------------------------------------------------------------------
@@ -295,6 +337,26 @@ Citizen.CreateThread(function()
             TriggerServerEvent("skadmin:setMapName", result)
           end
           WarMenu.OpenMenu("admin_menu")
+          WarMenu.Display()
+        -- ---------------------------------------------------------------------
+        -- EXPLOSION AMMO MENU
+        -- ---------------------------------------------------------------------
+        elseif WarMenu.IsMenuOpened('explosiveAmmo_menu') then
+          if havePermissions("explossiveAmmo") and WarMenu.CheckBox("Explosive Ammo", explossiveAmmo, function(checked) explossiveAmmo = checked end) then
+            TriggerServerEvent("skadmin:svtoggleExplosiveAmmo",GetPlayerServerId(source))
+          elseif havePermissions("explossiveAmmo") and WarMenu.MenuButton('Explosion Type', 'explosion_type') then
+          end
+          WarMenu.Display()
+        -- ---------------------------------------------------------------------
+        -- EXPLOSION TYPE
+        -- ---------------------------------------------------------------------
+        elseif WarMenu.IsMenuOpened('explosion_type') then
+          for i, tup in ipairs(explosions) do
+            if WarMenu.MenuButton(tup[1], 'explosion_type') then
+              explosionType = tup[2]
+              drawNotification("~b~Explosion ammo changed to " .. tup[1])
+            end
+          end
           WarMenu.Display()
         -- ---------------------------------------------------------------------
         -- OPEN MENU

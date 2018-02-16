@@ -28,11 +28,16 @@ To turn of use the nil value. To turn on use the value 1.
 ## Features
 - [X] Admin Ranks
 - [ ] Admin Tag Over Head
-- [ ] Admin Skin (for each rank)
+- [ ] Admin, Moderator and Owner Skin
 - [X] Admin Menu
 - [X] Server Management Menu
 - [X] Teleport Menu
 - [X] Player Menu
+- [ ] Weapon Menu
+- [ ] Vehicle Menu
+- [ ] Skin Menu
+- [ ] Online Menu
+- [ ] Animation Menu
 - [X] Event Chat Messages & Event Console Messages
 - [ ] Warnings
 - [ ] Admins Online
@@ -50,6 +55,9 @@ To turn of use the nil value. To turn on use the value 1.
 - [ ] Stop Engine
 - [ ] Bodyguards
 - [ ] Night and Thermal Vision
+- [ ] Owner Skin
+- [ ] Change admin skins option
+- [ ] Change explosion type menu
 
 ## Menus
 | Menu              | Features                                                                                                                   |
@@ -58,11 +66,16 @@ To turn of use the nil value. To turn on use the value 1.
 | Server Management | Restart Resource, Start Resource, Stop Resource, Set Game Type, Set Map Name                                               |
 | Teleport Menu     | Teleport to Player, Teleport to Waypoint                                                                                   |
 | Player Menu       | NoClip, God Mode, Infinite Stamina, Invisibility, Polic Ignore, Never Wanted, Fast Swim, Fast Run, Super Jump, No Rag Doll |
+| Weapon Menu       | Give All Weapons, Remove All Weapons,  Delete Gun, Teleport Gun, Vehicle Gun, Whale Gun, Fire Ammo, One Shot Kill,
+Explosive Ammo, Infinite Ammo                                                                                                                    |
+
 ## Ranks
 | Rank          | Id | Permissions                                                                                |
 |---------------|----|--------------------------------------------------------------------------------------------|
-| Moderador     | 1  | Kick, Teleport to Player, Teleport to Waypoint, Godmode, Infinite Stamina, Max Health, Max Armor, Never Wanted, Increase Wanted Level, Clear Wanted Level, Fast Swim, Fast Sprint, Super Jump, No Rag Doll                                            |
-| Administrator | 2  | Ban, Unban, Noclip, Invisibility and all above                                                           |
+| Moderador     | 1  | Kick, Teleport to Player, Teleport to Waypoint, Godmode, Infinite Stamina,
+Max Health, Max Armor, Never Wanted, Increase Wanted Level, Clear Wanted Level, Fast Swim, Fast Sprint,
+Super Jump, No Rag Doll, Give and Remove all Weapons                                                              |
+| Administrator | 2  | Ban, Unban, Noclip, Invisibility and all above                                             |
 | Owner         | 3  | Restart Resource, Start Resource, Stop Resource, Set Game Type, Set Map Name and all above |
 
 ## Controls

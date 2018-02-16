@@ -14,7 +14,8 @@ Config.settings = {
   saves_directory = "skadmin_saves/", -- Extremely important: this directory must be created in server-data
   banlist_file = "banlist.txt",
   event_messages = 1, -- Event messages in server chat (ban, kick, etc..). Change to nil if you want to desactivate, to 1 if want it active.
-  event_messages_console = 1 -- Event messages in the console
+  event_messages_console = 1, -- Event messages in the console
+  skins = 1,
 }
 
 Config.permissions = {
@@ -32,12 +33,22 @@ Config.permissions = {
   ["infStamina"] = 1,
   ["invisibility"] = 2,
   ["neverWanted"] = 1,
-  ["increse_wanted"] = 1,
+  ["increase_wanted"] = 1,
   ["clear_wanted"] = 1,
   ["fastSwim"] = 1,
   ["fastSprint"] = 1,
   ["superJump"] = 1,
   ["noRagDoll"] = 1,
+  ["give_all"] = 1,
+  ["remove_all"] = 1,
+  ["deleteGun"] = 3,
+  ["fireAmmo"] = 1,
+  ["oneShotKill"] = 1,
+  ["explossiveAmmo"] = 1,
+  ["infiniteAmmo"] = 1,
+  ["teleportGun"] = 2,
+  ["vehicleGun"] = 2,
+  ["whaleGun"] = 3,
 }
 
 Config.color = {
@@ -97,4 +108,9 @@ end)
 RegisterServerEvent("skadmin:getRank")
 AddEventHandler("skadmin:getRank", function(id)
   TriggerClientEvent("skadmin:receiveRank", source, getRank(id))
+end)
+
+RegisterServerEvent("skadmin:getSettings")
+AddEventHandler("skadmin:getSettings", function()
+  TriggerClientEvent("skadmin:receiveSettings", source, Config.settings)
 end)

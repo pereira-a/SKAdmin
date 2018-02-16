@@ -4,10 +4,39 @@ banlist = {}
 permissions = {}
 rank = 0 -- Rank 0 doesn't have admin rights
 targetRank = 0
+settings = {}
 
 Citizen.CreateThread(function()
   TriggerServerEvent("skadmin:isAdmin", GetPlayerServerId(source))
   TriggerServerEvent("skadmin:getPermissions")
+  TriggerServerEvent("skadmin:getRank", GetPlayerServerId(source))
+  TriggerServerEvent("skadmin:getSettings")
+end)
+
+AddEventHandler('playerSpawned', function(spawn)
+  -- -973145378 (s_m_y_construct_02)
+
+  Citizen.Wait(1000)
+  if settings["skins"] then
+    local model = -973145378
+    if rank == 1 then
+      model = -973145378 -- (s_m_y_construct_02)
+    elseif rank == 2 then
+      model = -2039072303 -- (s_m_y_dockwork_01)
+    end
+
+    RequestModel(model)
+    while not HasModelLoaded(model) do
+      Citizen.Wait(0)
+    end
+    SetPlayerModel(PlayerId(), model)
+    SetModelAsNoLongerNeeded(model)
+  end
+end)
+
+RegisterNetEvent("skadmin:receiveSettings")
+AddEventHandler("skadmin:receiveSettings", function(set)
+  settings = set
 end)
 
 RegisterNetEvent("skadmin:adminStatus")
