@@ -9,17 +9,23 @@ A FiveM script which implements an admin trainer, with admin options and basic t
 4. Restart or start your server.
 
 ## Config
-The following features are all configurable in sv_config.lua file.
 
-### Directory Nam
+### Directory Name
+In sv_config.lua:
 To change the name of the save directory change the value of Config.settings.saves_directory
 
 ### Admin List File
+In sv_config.lua:
 To change the name of this file change the value of Config.settings.banlist_file
 
 ### Event Chat Messages & Event Console Messages
+In sv_config.lua:
 You can turn on and off this in Config.settings.event_messages and Config.settings.event_messages_console, respectively.
-To turn of use the nil value. To turn on use the value 1.
+To turn off use the nil value. To turn on use the value 1.
+
+### Car used by Vehicle Gun
+In cl_general:
+Change the value of vehicleGunVehicle
 
 ## Notes
 1. Is extremely important to create skadmin_saves directory. You can change then name of the folder and files in Config.settings.saves_directory
@@ -57,7 +63,7 @@ To turn of use the nil value. To turn on use the value 1.
 - [ ] Night and Thermal Vision
 - [ ] Owner Skin
 - [ ] Change admin skins option
-- [ ] Change explosion type menu
+- [X] Change explosion type menu
 
 ## Menus
 | Menu              | Features                                                                                                                   |
